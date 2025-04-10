@@ -1,0 +1,32 @@
+<launch>
+
+	<!-- we will launch with a delay to allow gazebo to load, feel free to edit -->
+	<arg name="launch_delay" value="5.0"/>
+
+	<!-- load panda model and gazebo parameters -->
+	<include file="$(find panda_description)/launch/description.launch"/>
+
+	<!-- start the coursework world spawner with a delay -->
+	<arg name="models_dir" value="$(find cw2_world_spawner)/models/"/>
+	<include file="$(find cw2_world_spawner)/launch/world_spawner.launch">
+		<arg name="launch_delay" value="$(arg launch_delay)"/>
+		<arg name="models_dir" value="$(arg models_dir)"/>
+	</include>
+
+	<!-- Params -->
+	<param name="/task3/cluster_min_height" value="0.05" />
+	<param name="/task3/cluster_max_height" value="1.5" />
+	<param name="pre_grasp_offset" value="0.125" type="double" />
+	<param name="grasp_offset" value="0.15" type="double" />
+	<param name="lift_height" value="0.5" type="double" />
+	<param name="drop_height" value="0.6" type="double" />
+	<param name="lateral_offset" value="0.05" type="double" />
+
+	<!-- launch the cw solving node, change pkg to your team name here! -->
+  <node pkg="cw2_team_7"
+        name="cw2_solution_node"
+        type="cw2_solution_node"
+        output="screen"
+  />
+  
+</launch>
